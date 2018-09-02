@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">SimpleNote</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_add">AddActivity</string>
+    <string name="add_note_message_hint">Enter your message</string>
+    <string name="toast_note_add">Note successfully added</string>
 </resources>
