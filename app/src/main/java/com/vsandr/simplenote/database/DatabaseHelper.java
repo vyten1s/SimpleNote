@@ -1,5 +1,6 @@
 package com.vsandr.simplenote.database;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -7,6 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.vsandr.simplenote.model.Note;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -83,7 +87,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_TIMESTAMP, time);
 
         db.insert(TABLE_NAME, null, values);
+    }
 
+    public List<Note> getAllNotes() {
+        List<Note> notes = new ArrayList<>();
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME + " ORDER BY " +
+                COLUMN_TIMESTAMP + " DESC";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Note note = new Note();
+                note.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
+                note.setNote(cursor.getString(cursor.getColumnIndex(COLUMN_NOTE)));
+                note.setTimestamp(cursor.getString(cursor.getColumnIndex(COLUMN_TIMESTAMP)));
+
+                notes.add(note);
+            } while (cursor.moveToNext());
+        }
+
+        // close db connection
+        db.close();
+
+        // return notes list
+        return notes;
     }
 
 

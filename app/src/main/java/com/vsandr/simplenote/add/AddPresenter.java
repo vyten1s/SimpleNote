@@ -20,7 +20,6 @@ public class AddPresenter {
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
         databaseHelper.createToDo(note, getDate());
         addView.onNoteSaved();
-
     }
 
     private String getDate(){

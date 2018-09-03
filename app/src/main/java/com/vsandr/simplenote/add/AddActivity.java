@@ -1,5 +1,6 @@
 package com.vsandr.simplenote.add;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.vsandr.simplenote.R;
+import com.vsandr.simplenote.main.MainActivity;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,13 +43,14 @@ public class AddActivity extends AppCompatActivity implements AddView {
             }
         });
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
     public void onNoteSaved() {
         Toast.makeText(getApplicationContext(), R.string.toast_note_add, Toast.LENGTH_LONG).show();
-        AddActivity.this.finish();
+        Intent i = new Intent(this, MainActivity.class);
+        startActivityForResult(i, 1);
     }
 
 
