@@ -4,4 +4,6 @@
     <string name="title_activity_add">AddActivity</string>
     <string name="add_note_message_hint">Enter your message</string>
     <string name="toast_note_add">Note successfully added</string>
+    <string name="title_delete">Delete</string>
+    <string name="toast_note_delete">Note successfully deleted</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.vsandr.simplenote.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.vsandr.simplenote.R;
+import com.vsandr.simplenote.detail.DetailActivity;
 import com.vsandr.simplenote.model.Note;
 
 import java.util.List;
@@ -18,6 +21,7 @@ import butterknife.ButterKnife;
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder> {
 
     private List<Note> notesList;
+    private Context context;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.text_note)TextView mTextViewNote;
@@ -29,11 +33,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
         }
     }
 
-
-    public NotesAdapter(List<Note> notesList) {
+    public NotesAdapter(Context context, List<Note> notesList) {
+        this.context = context;
         this.notesList = notesList;
     }
 
+    @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -44,10 +49,19 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Note note = notesList.get(position);
+        final Note note = notesList.get(position);
 
         holder.mTextViewNote.setText(note.getNote());
         holder.mTextViewDate.setText(note.getTimestamp());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent detail = new Intent(context, DetailActivity.class);
+                detail.putExtra("id",note.getId());
+                context.startActivity(detail);
+            }
+        });
     }
 
     @Override

@@ -28,6 +28,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.vsandr.simplenote.main.MainActivity" />
         </activity>
+        <activity android:name=".detail.DetailActivity"></activity>
     </application>
 
 </manifest>
