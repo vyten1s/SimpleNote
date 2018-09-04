@@ -55,7 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public Note getNote(long id) {
+    public Note getNote(int id) {
         // get readable database as we are not inserting anything
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -116,6 +116,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // return notes list
         return notes;
+    }
+
+    public void deleteNote(Note note) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, COLUMN_ID + " = ?",
+                new String[]{String.valueOf(note.getId())});
+        db.close();
     }
 
 
